@@ -1,0 +1,42 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Zeffy
+providerId: zeffy
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Fundraising
+- Nonprofit
+- Rate Limiting
+- Quotas
+description: >-
+  Zeffy's public API enforces a documented rate limit of 100 requests per minute
+  per API key. Exceeding the limit returns HTTP 429. Connections are HTTPS-only.
+  The API is read-only and free, so there is no separate paid quota tier - the
+  same 100 requests/minute limit applies to every organization's API key.
+notes: >-
+  Verify the current limit and any retry guidance in Zeffy's interactive API
+  documentation. Clients should implement backoff on 429 responses.
+sources:
+- https://www.zeffy.com/integration/api
+- https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
+responseCodes:
+  success: 200
+  unauthorized: 401
+  throttled: 429
+limits:
+- name: API Requests
+  scope: apiKey
+  metric: requests
+  limit: 100 per minute
+  notes: Documented limit of 100 requests per minute per API key; 429 on exceed.
+policies:
+- name: HTTPS Only
+  description: All API connections must be made over HTTPS.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

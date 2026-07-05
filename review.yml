@@ -1,0 +1,86 @@
+aid: zeffy
+name: Zeffy
+review:
+  question: Does Zeffy expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-05'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Zeffy's public API surface is
+    request/response REST over HTTPS (base https://api.zeffy.com/api/v1),
+    read-only, authenticated with a Bearer API key. Zeffy does provide outbound
+    webhooks - when a payment is completed Zeffy sends an HTTP POST with the
+    payment details to a URL the organization configures under Settings then
+    Integrations - but that is server-to-endpoint HTTP notification, not a
+    server-push streaming transport (WebSocket or SSE) on Zeffy's own API.
+findings:
+  summary: |
+    Zeffy does not publish a documented public WebSocket API. Zeffy is a 100%
+    free fundraising platform for nonprofits (formerly Simplyk, Montreal). It
+    exposes a free public REST API giving organization admins read-only access
+    to three resources - Payments, Contacts, and Campaigns - at base
+    https://api.zeffy.com/api/v1, authenticated with a per-organization API key
+    sent as "Authorization: Bearer YOUR_API_KEY". The API is read-only (pull
+    only, no create/modify), uses cursor-based pagination (has_more,
+    next_cursor), and is rate limited to 100 requests per minute per key (429 on
+    exceed). Zeffy also offers outbound webhooks that POST payment details to a
+    configured URL on payment completion, plus Zapier, QuickBooks, and WordPress
+    integrations. No realtime, bidirectional, or streaming WebSocket (ws:// or
+    wss://) endpoint is documented anywhere on Zeffy's API as of the review date.
+  openSource: |
+    Zeffy is a proprietary hosted SaaS platform, not open source. There is no
+    self-hostable engine; the API is a managed cloud surface tied to a Zeffy
+    organization account and its generated API key.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.zeffy.com/api/v1
+      documented: true
+      note: Read-only Payments, Contacts, Campaigns. Bearer API key auth. 100 req/min.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Zeffy POSTs full payment details to a configured URL when a payment completes. Server-to-endpoint HTTP, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Zeffy's API or webhook docs as of the review date.
+  endpointsConfirmedRest:
+    - GET https://api.zeffy.com/api/v1/payments
+    - GET https://api.zeffy.com/api/v1/contacts
+    - GET https://api.zeffy.com/api/v1/campaigns
+  endpointsModeled:
+    - GET https://api.zeffy.com/api/v1/payments/{id}
+    - GET https://api.zeffy.com/api/v1/contacts/{id}
+    - GET https://api.zeffy.com/api/v1/campaigns/{id}
+  endpointsModeledNote: |
+    The three list endpoints, the base URL, Bearer auth, cursor pagination, and
+    the 100 req/min limit are confirmed from Zeffy's public documentation. The
+    get-by-id paths and per-resource query parameters are honestly modeled from
+    the documented capabilities ("look up a specific payment", "look up a
+    specific person by ID or email", filter payments by currency/status/type/
+    contact/campaign/date range) rather than copied field-by-field from the
+    interactive reference, which requires a Zeffy account to view.
+sources:
+  - url: https://www.zeffy.com/integration/api
+    type: Documentation
+    note: Public API overview - read-only Payments/Contacts/Campaigns, API key auth, 100 req/min, HTTPS only.
+  - url: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
+    type: APIReference
+    note: Base URL https://api.zeffy.com/api/v1, Bearer token auth, list endpoints, cursor pagination, 429 on rate limit.
+  - url: https://www.zeffy.com/
+    type: Website
+    note: 100% free for nonprofits, no platform/transaction/credit-card fees, funded by optional donor tips.
+  - url: https://www.zeffy.com/blog/simplyk-becomes-zeffy
+    type: Blog
+    note: Simplyk rebranded to Zeffy; Montreal-based, expanded to the US.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Zeffy's public API is request/response
+    REST (read-only Payments, Contacts, Campaigns) plus outbound payment
+    webhooks. No AsyncAPI document was created because there is no server-push
+    streaming transport on Zeffy's own API to model; the webhooks are
+    server-to-endpoint HTTP callbacks, not a WebSocket channel.

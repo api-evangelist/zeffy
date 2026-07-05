@@ -1,0 +1,79 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Zeffy
+providerId: zeffy
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Fundraising
+- Nonprofit
+- Free
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Zeffy spend. Zeffy is unusual: it charges nonprofits nothing -
+  no platform, transaction, or credit-card fees - and the public API and
+  webhooks are free with no per-request charges. Zeffy is funded by optional
+  tips left by donors at checkout. From a nonprofit consumer's perspective there
+  is effectively no vendor invoice for using Zeffy or its API; the only
+  "cost" is the optional donor tip, which is a donor-side choice rather than a
+  billed line item to the organization.
+notes: >-
+  There is no metered API cost to allocate or optimize. Verify current terms on
+  zeffy.com.
+sources:
+- https://www.zeffy.com/
+- https://www.zeffy.com/integration/api
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Zeffy
+serviceCategory: Fundraising and Payments
+billingModel:
+  pricingCategory: Free
+  billingFrequency: None
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+focusColumns:
+  ServiceName: Zeffy
+  ServiceCategory: Fundraising and Payments
+  ProviderName: Zeffy
+  PublisherName: Zeffy
+  InvoiceIssuerName: Zeffy
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Free
+meters:
+- name: api_requests
+  description: Public API requests, capped at 100 per minute per key; not billed.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - apiKey
+- name: donor_tips
+  description: Optional tips donors leave at checkout that fund Zeffy; donor-side, not billed to the nonprofit.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track API usage against the 100 req/min limit; there is no monetary cost to attribute.
+- name: Allocation
+  description: No billed API cost to allocate across teams or workloads.
+- name: Optimization
+  description: Optimize for rate-limit headroom (batch reads, paginate efficiently) rather than for cost.
+- name: Accountability
+  description: Owners monitor API key usage and webhook reliability; there is no vendor invoice to reconcile.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

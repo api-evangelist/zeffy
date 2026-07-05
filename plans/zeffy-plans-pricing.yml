@@ -1,0 +1,61 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Zeffy
+providerId: zeffy
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Fundraising
+- Nonprofit
+- Free
+- Plans
+description: >-
+  Zeffy has an unusual pricing model: it is 100% free for nonprofits, with no
+  platform fees, no transaction fees, and no credit-card fees. Zeffy sustains
+  itself entirely through optional tips left by donors at checkout (on average
+  roughly 2 out of 3 donors leave a tip). The full platform - donation forms,
+  event ticketing, peer-to-peer campaigns, memberships, e-commerce, donor
+  management - and the public API and webhooks are all included at no cost.
+  There are no paid API tiers and no per-request charges for the API.
+notes: >-
+  Because Zeffy charges nonprofits nothing, there is no monetary plan ladder to
+  reconcile - the "cost" surfaced to donors is the optional tip, which does not
+  flow through the API as a fee. Verify current terms on zeffy.com.
+sources:
+- https://www.zeffy.com/
+- https://www.zeffy.com/integration/api
+- https://www.zeffy.com/blog/simplyk-becomes-zeffy
+plans:
+- id: zeffy-free
+  name: Zeffy Free
+  type: free
+  description: >-
+    The entire Zeffy platform for nonprofits at no cost - donation forms, event
+    ticketing, memberships, e-commerce, donor management - with no platform,
+    transaction, or credit-card fees. Includes free access to the read-only
+    public REST API (Payments, Contacts, Campaigns) and outbound webhooks.
+  entries:
+  - label: Platform and API Access
+    name: platform_and_api
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (funded by optional donor tips)
+    userMultiplied: false
+  elements:
+  - name: Donation Forms
+  - name: Event Ticketing
+  - name: Peer-to-Peer and Memberships
+  - name: E-Commerce
+  - name: Donor Management
+  - name: Public REST API (read-only)
+  - name: Webhooks
+  - name: Zapier / QuickBooks / WordPress Integrations
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
