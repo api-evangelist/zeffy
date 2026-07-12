@@ -103,6 +103,10 @@ apis:
     sync, and internal notifications. This is Zeffy-to-consumer HTTP notification,
     not an inbound API surface.
 common:
+- type: DomainSecurity
+  url: security/zeffy-domain-security.yml
+- type: Authentication
+  url: authentication/zeffy-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/zeffy
 - type: Website

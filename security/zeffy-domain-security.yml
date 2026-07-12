@@ -1,0 +1,26 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.zeffy.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 27 07:50:28 2026 GMT
+  hsts: false
+- host: support.zeffy.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 30 17:21:28 2026 GMT
+  hsts: false
+- host: api.zeffy.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 27 07:50:53 2026 GMT
+  hsts: null
+domains:
+- domain: zeffy.com
+  dnssec: true
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
