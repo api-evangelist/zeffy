@@ -103,6 +103,8 @@ apis:
     sync, and internal notifications. This is Zeffy-to-consumer HTTP notification,
     not an inbound API surface.
 common:
+- type: AgenticAccess
+  url: agentic-access/zeffy-agentic-access.yml
 - type: DomainSecurity
   url: security/zeffy-domain-security.yml
 - type: Authentication
