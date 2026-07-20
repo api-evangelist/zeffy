@@ -9,6 +9,6 @@ schemes:
   type: http
   scheme: bearer
   description: 'Per-organization API key generated under Settings then Integrations, sent as
-    "Authorization: Bearer YOUR_API_KEY".'
+    "Authorization: Bearer [example key]".'
   sources:
   - openapi/zeffy-openapi.yml
