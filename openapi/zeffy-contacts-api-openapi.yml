@@ -1,0 +1,120 @@
+openapi: 3.0.3
+info:
+  title: Zeffy Public Campaigns Contacts API
+  description: 'The Zeffy Public API gives nonprofit organization admins free, read-only access to their Zeffy data: Payments (transactions/donations), Contacts (donors and supporters), and Campaigns (donation forms, events, and other campaign types). The API is REST over HTTPS, authenticated with a per-organization API key sent as a Bearer token in the Authorization header. It is read-only - records can be pulled but not created or modified. Results use cursor-based pagination and support filtering (payments by currency, status, type, contact, campaign, and date range; contacts by ID or email). The rate limit is 100 requests per minute per API key.
+
+    NOTE: The list endpoints (GET /payments, GET /contacts, GET /campaigns), the base URL, Bearer auth, cursor pagination, and the rate limit are confirmed from Zeffy''s public documentation. The get-by-id paths and individual query parameters below are honestly modeled from the documented capabilities ("look up a specific payment", "look up a specific person by ID or email", filter by currency/status/type/contact/campaign/date) rather than copied field-by-field from the interactive reference, which requires an account.'
+  version: '1.0'
+  contact:
+    name: Zeffy
+    url: https://www.zeffy.com/integration/api
+servers:
+- url: https://api.zeffy.com/api/v1
+  description: Zeffy Public API
+security:
+- bearerAuth: []
+tags:
+- name: Contacts
+  description: An organization's donors and supporters.
+paths:
+  /contacts:
+    get:
+      operationId: listContacts
+      tags:
+      - Contacts
+      summary: List contacts
+      description: Retrieves an organization's full donor and supporter list. Confirmed endpoint.
+      parameters:
+      - name: email
+        in: query
+        required: false
+        schema:
+          type: string
+          format: email
+        description: Look up a specific contact by email.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Cursor for the next page.
+      responses:
+        '200':
+          description: A page of contacts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /contacts/{id}:
+    get:
+      operationId: getContact
+      tags:
+      - Contacts
+      summary: Get a contact
+      description: Retrieves a single contact, including giving history, total contributions, address, and communication preferences. Modeled from the documented ability to look up a specific person by ID or email.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A single contact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+components:
+  schemas:
+    ContactList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    Contact:
+      type: object
+      description: A donor or supporter. Field set is modeled.
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        address:
+          type: object
+          nullable: true
+        totalContributions:
+          type: number
+        communicationPreferences:
+          type: object
+          nullable: true
+  responses:
+    RateLimited:
+      description: Rate limit exceeded (100 requests per minute per API key).
+    Unauthorized:
+      description: Missing or invalid API key.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Per-organization API key generated under Settings then Integrations, sent as "Authorization: Bearer YOUR_API_KEY".'

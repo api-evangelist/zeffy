@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: Zeffy Public Campaigns API
+  description: 'The Zeffy Public API gives nonprofit organization admins free, read-only access to their Zeffy data: Payments (transactions/donations), Contacts (donors and supporters), and Campaigns (donation forms, events, and other campaign types). The API is REST over HTTPS, authenticated with a per-organization API key sent as a Bearer token in the Authorization header. It is read-only - records can be pulled but not created or modified. Results use cursor-based pagination and support filtering (payments by currency, status, type, contact, campaign, and date range; contacts by ID or email). The rate limit is 100 requests per minute per API key.
+
+    NOTE: The list endpoints (GET /payments, GET /contacts, GET /campaigns), the base URL, Bearer auth, cursor pagination, and the rate limit are confirmed from Zeffy''s public documentation. The get-by-id paths and individual query parameters below are honestly modeled from the documented capabilities ("look up a specific payment", "look up a specific person by ID or email", filter by currency/status/type/contact/campaign/date) rather than copied field-by-field from the interactive reference, which requires an account.'
+  version: '1.0'
+  contact:
+    name: Zeffy
+    url: https://www.zeffy.com/integration/api
+servers:
+- url: https://api.zeffy.com/api/v1
+  description: Zeffy Public API
+security:
+- bearerAuth: []
+tags:
+- name: Campaigns
+  description: Donation forms, events, and other campaign types.
+paths:
+  /campaigns:
+    get:
+      operationId: listCampaigns
+      tags:
+      - Campaigns
+      summary: List campaigns
+      description: Lists an organization's donation forms, events, and other campaign types. Confirmed endpoint.
+      parameters:
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Cursor for the next page.
+      responses:
+        '200':
+          description: A page of campaigns.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /campaigns/{id}:
+    get:
+      operationId: getCampaign
+      tags:
+      - Campaigns
+      summary: Get a campaign
+      description: Retrieves a single campaign, including title, description, goal, dates, occurrences, and amount raised. Modeled from the documented ability to look up a specific campaign.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A single campaign.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+components:
+  responses:
+    RateLimited:
+      description: Rate limit exceeded (100 requests per minute per API key).
+    Unauthorized:
+      description: Missing or invalid API key.
+  schemas:
+    Campaign:
+      type: object
+      description: A donation form, event, or other campaign type. Field set is modeled.
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        goal:
+          type: number
+          nullable: true
+        amountRaised:
+          type: number
+        startDate:
+          type: string
+          format: date
+          nullable: true
+        endDate:
+          type: string
+          format: date
+          nullable: true
+    CampaignList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Campaign'
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Per-organization API key generated under Settings then Integrations, sent as "Authorization: Bearer YOUR_API_KEY".'
