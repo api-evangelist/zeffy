@@ -11,7 +11,20 @@ description: Zeffy is a 100% free fundraising platform for nonprofits - donation
   per-organization API key sent as a Bearer token, plus outbound webhooks that POST
   payment details to a configured URL when a payment is completed. Zeffy also
   integrates via Zapier, QuickBooks, and WordPress.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Free · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/zeffy.png
 tags:
 - Fundraising
 - Nonprofit
@@ -24,65 +37,6 @@ created: '2026-07-05'
 modified: '2026-07-05'
 specificationVersion: '0.19'
 apis:
-- aid: zeffy:zeffy-payments-api
-  name: Zeffy Payments API
-  tags:
-  - Payments
-  - Donations
-  - Transactions
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
-  baseURL: https://api.zeffy.com/api/v1
-  properties:
-  - url: https://www.zeffy.com/integration/api
-    type: Documentation
-  - url: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
-    type: APIReference
-  - url: openapi/zeffy-openapi.yml
-    type: OpenAPI
-  description: Read-only access to an organization's transactions. List all payments
-    or look up a specific payment, filtering by currency, status, type (online,
-    manual, or imported), contact, campaign, or date range. Each payment includes
-    line items, refund details, buyer info, and a link to the tax receipt.
-- aid: zeffy:zeffy-contacts-api
-  name: Zeffy Contacts API
-  tags:
-  - Contacts
-  - Donors
-  - CRM
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
-  baseURL: https://api.zeffy.com/api/v1
-  properties:
-  - url: https://www.zeffy.com/integration/api
-    type: Documentation
-  - url: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
-    type: APIReference
-  - url: openapi/zeffy-openapi.yml
-    type: OpenAPI
-  description: Read-only access to an organization's donor and supporter list.
-    Retrieve the full contact list or look up a specific person by ID or email.
-    Each contact includes giving history, total contributions, address, and
-    communication preferences.
-- aid: zeffy:zeffy-campaigns-api
-  name: Zeffy Campaigns API
-  tags:
-  - Campaigns
-  - Forms
-  - Events
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
-  baseURL: https://api.zeffy.com/api/v1
-  properties:
-  - url: https://www.zeffy.com/integration/api
-    type: Documentation
-  - url: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
-    type: APIReference
-  - url: openapi/zeffy-openapi.yml
-    type: OpenAPI
-  description: Read-only access to an organization's donation forms, events, and
-    other campaign types. List campaigns or look up a specific campaign to see
-    titles, descriptions, goals, dates, occurrences, and how much has been raised.
 - aid: zeffy:zeffy-webhooks
   name: Zeffy Webhooks
   tags:
@@ -97,11 +51,53 @@ apis:
     type: Documentation
   - url: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
     type: APIReference
-  description: Outbound webhooks configured under Settings then Integrations. When a
-    payment is completed, Zeffy sends an HTTP POST with the full payment details to
-    the organization's configured URL, enabling thank-you workflows, CRM/accounting
-    sync, and internal notifications. This is Zeffy-to-consumer HTTP notification,
+  description: >-
+    Outbound webhooks configured under Settings then Integrations. When a payment is completed, Zeffy
+    sends an HTTP POST with the full payment details to the organization's configured URL, enabling thank-you
+    workflows, CRM/accounting sync, and internal notifications. This is Zeffy-to-consumer HTTP notification,
     not an inbound API surface.
+- aid: zeffy:zeffy-campaigns-api
+  name: Zeffy Campaigns API
+  description: Donation forms, events, and other campaign types.
+  humanURL: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
+  baseURL: https://api.zeffy.com/api/v1
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/zeffy-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://www.zeffy.com/integration/api
+  - type: APIReference
+    url: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
+- aid: zeffy:zeffy-contacts-api
+  name: Zeffy Contacts API
+  description: An organization's donors and supporters.
+  humanURL: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
+  baseURL: https://api.zeffy.com/api/v1
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/zeffy-contacts-api-openapi.yml
+  - type: Documentation
+    url: https://www.zeffy.com/integration/api
+  - type: APIReference
+    url: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
+- aid: zeffy:zeffy-payments-api
+  name: Zeffy Payments API
+  description: An organization's transactions and donations.
+  humanURL: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
+  baseURL: https://api.zeffy.com/api/v1
+  tags:
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/zeffy-payments-api-openapi.yml
+  - type: Documentation
+    url: https://www.zeffy.com/integration/api
+  - type: APIReference
+    url: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
 common:
 - type: AgenticAccess
   url: agentic-access/zeffy-agentic-access.yml
