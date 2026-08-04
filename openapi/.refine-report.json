@@ -1,0 +1,18 @@
+{
+  "provider": "zeffy",
+  "sources": [
+    "zeffy-campaigns-api-openapi.yml",
+    "zeffy-contacts-api-openapi.yml",
+    "zeffy-payments-api-openapi.yml"
+  ],
+  "outputs": [
+    "zeffy-campaigns-api-openapi.yml",
+    "zeffy-contacts-api-openapi.yml",
+    "zeffy-payments-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
