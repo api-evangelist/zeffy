@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeffy Public Campaigns Payments API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeffy.com/api/v1/payments",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Filter by currency (e.g. USD, CAD)."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by payment status."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by payment type."
+              },
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contact."
+              },
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by campaign."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start of the date range."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End of the date range."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the next page (next_cursor from a prior response)."
+              }
+            ]
+          },
+          "docs": "Lists an organization's payments. Filterable by currency, status, type, contact, campaign, and date range. Confirmed endpoint."
+        },
+        {
+          "info": {
+            "name": "Get a payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeffy.com/api/v1/payments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a single payment, including line items, refund details, buyer info, and a link to the tax receipt. Modeled from the documented ability to look up a specific payment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
