@@ -27,6 +27,14 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/zeffy.png
 tags:
 - Fundraising
+- Non-Profit
+- Donations
+- Payments
+- Donor Management
+- Free
+- Webhook
+tags_raw:
+- Fundraising
 - Nonprofit
 - Donations
 - Payments
@@ -40,6 +48,10 @@ apis:
 - aid: zeffy:zeffy-webhooks
   name: Zeffy Webhooks
   tags:
+  - Webhook
+  - Event
+  - Payments
+  tags_raw:
   - Webhooks
   - Events
   - Payments
