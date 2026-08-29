@@ -11,6 +11,18 @@ description: Zeffy is a 100% free fundraising platform for nonprofits - donation
   per-organization API key sent as a Bearer token, plus outbound webhooks that POST
   payment details to a configured URL when a payment is completed. Zeffy also
   integrates via Zapier, QuickBooks, and WordPress.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: self-serve
