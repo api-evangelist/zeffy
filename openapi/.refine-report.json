@@ -1,9 +1,7 @@
 {
   "provider": "zeffy",
   "sources": [
-    "zeffy-campaigns-api-openapi.yml",
-    "zeffy-contacts-api-openapi.yml",
-    "zeffy-payments-api-openapi.yml"
+    "_original/zeffy-openapi.yml"
   ],
   "outputs": [
     "zeffy-campaigns-api-openapi.yml",
@@ -13,6 +11,14 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "zeffy-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "zeffy-campaigns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeffy-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeffy-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Zeffy Public Campaigns Contacts API
-  description: 'The Zeffy Public API gives nonprofit organization admins free, read-only access to their Zeffy data: Payments (transactions/donations), Contacts (donors and supporters), and Campaigns (donation forms, events, and other campaign types). The API is REST over HTTPS, authenticated with a per-organization API key sent as a Bearer token in the Authorization header. It is read-only - records can be pulled but not created or modified. Results use cursor-based pagination and support filtering (payments by currency, status, type, contact, campaign, and date range; contacts by ID or email). The rate limit is 100 requests per minute per API key.
-
-    NOTE: The list endpoints (GET /payments, GET /contacts, GET /campaigns), the base URL, Bearer auth, cursor pagination, and the rate limit are confirmed from Zeffy''s public documentation. The get-by-id paths and individual query parameters below are honestly modeled from the documented capabilities ("look up a specific payment", "look up a specific person by ID or email", filter by currency/status/type/contact/campaign/date) rather than copied field-by-field from the interactive reference, which requires an account.'
+  title: Zeffy Public Contacts API
+  description: 'The Zeffy Public API gives nonprofit organization admins free, read-only access to their Zeffy data: Payments (transactions/donations), Contacts (donors and supporters), and Campaigns (donation forms, events, and other campaign types).'
   version: '1.0'
   contact:
     name: Zeffy
@@ -85,8 +83,9 @@ components:
         has_more:
           type: boolean
         next_cursor:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
     Contact:
       type: object
       description: A donor or supporter. Field set is modeled.
@@ -101,18 +100,20 @@ components:
           type: string
           format: email
         address:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
         totalContributions:
           type: number
         communicationPreferences:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
   responses:
-    RateLimited:
-      description: Rate limit exceeded (100 requests per minute per API key).
     Unauthorized:
       description: Missing or invalid API key.
+    RateLimited:
+      description: Rate limit exceeded (100 requests per minute per API key).
   securitySchemes:
     bearerAuth:
       type: http
