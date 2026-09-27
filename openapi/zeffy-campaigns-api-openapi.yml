@@ -66,6 +66,19 @@ paths:
           $ref: '#/components/responses/RateLimited'
 components:
   schemas:
+    CampaignList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Campaign'
+        has_more:
+          type: boolean
+        next_cursor:
+          type:
+          - string
+          - 'null'
     Campaign:
       type: object
       description: A donation form, event, or other campaign type. Field set is modeled.
@@ -94,19 +107,6 @@ components:
           - string
           - 'null'
           format: date
-    CampaignList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Campaign'
-        has_more:
-          type: boolean
-        next_cursor:
-          type:
-          - string
-          - 'null'
   responses:
     Unauthorized:
       description: Missing or invalid API key.
