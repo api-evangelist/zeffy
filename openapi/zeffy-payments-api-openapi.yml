@@ -114,24 +114,11 @@ paths:
           $ref: '#/components/responses/RateLimited'
 components:
   responses:
-    RateLimited:
-      description: Rate limit exceeded (100 requests per minute per API key).
     Unauthorized:
       description: Missing or invalid API key.
+    RateLimited:
+      description: Rate limit exceeded (100 requests per minute per API key).
   schemas:
-    PaymentList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Payment'
-        has_more:
-          type: boolean
-        next_cursor:
-          type:
-          - string
-          - 'null'
     Payment:
       type: object
       description: A transaction/donation. Field set is modeled.
@@ -170,6 +157,19 @@ components:
           - string
           - 'null'
           format: uri
+    PaymentList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+        has_more:
+          type: boolean
+        next_cursor:
+          type:
+          - string
+          - 'null'
   securitySchemes:
     bearerAuth:
       type: http

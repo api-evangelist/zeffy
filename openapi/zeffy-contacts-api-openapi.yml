@@ -72,11 +72,6 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    RateLimited:
-      description: Rate limit exceeded (100 requests per minute per API key).
-    Unauthorized:
-      description: Missing or invalid API key.
   schemas:
     ContactList:
       type: object
@@ -114,6 +109,11 @@ components:
           type:
           - object
           - 'null'
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+    RateLimited:
+      description: Rate limit exceeded (100 requests per minute per API key).
   securitySchemes:
     bearerAuth:
       type: http
