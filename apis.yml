@@ -124,6 +124,9 @@ apis:
   - type: APIReference
     url: https://support.zeffy.com/get-started-with-the-zeffy-api-yourg
 common:
+- type: CapabilityMap
+  url: capabilities/zeffy-capability-edges.yml
+  name: Zeffy Business Capability Map
 - type: AgenticAccess
   url: agentic-access/zeffy-agentic-access.yml
 - type: DomainSecurity
