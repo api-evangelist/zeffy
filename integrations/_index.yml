@@ -41,3 +41,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: zeffy-wix-own
+  label: Wix (own)
+  partner: wix
+  partner_name: Wix (own)
+  category: Crowdfunding
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.wix.com/app-market/developer/zeffy
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
